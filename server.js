@@ -9,7 +9,7 @@ const secretKey = 'your-secret-key';
 
 // MongoDB connection URL
 const mongoURL =
-  'mongodb+srv://aza:mongoodb@cluster0.afiwueu.mongodb.net/?retryWrites=true&w=majority';
+  'mongodb+srv://alyaazafira:alyaazafira@alyaa.emy970i.mongodb.net/?retryWrites=true&w=majority';
 
 // MongoDB database and collections names
 const dbName = 'appointment';
