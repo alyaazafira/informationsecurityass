@@ -2,9 +2,11 @@ const express = require('express');
 const mongodb = require('mongodb');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const secretKey = 'your-secret-key';
 
 // MongoDB connection URL
@@ -20,6 +22,19 @@ const appointmentCollection = 'appointments';
 // Middleware for parsing JSON data
 app.use(express.json());
 
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'VMS appointment',
+            version: '1.0.0',
+        },
+    },
+    apis: ['./server.js'],
+};
+const swaggerSpec = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // MongoDB connection
 mongodb.MongoClient.connect(mongoURL, { useUnifiedTopology: true })
   .then((client) => {
@@ -30,6 +45,37 @@ mongodb.MongoClient.connect(mongoURL, { useUnifiedTopology: true })
 
     // Staff login
     // Staff login
+/**
+ * @swagger
+ *  /login-staff:
+    post:
+    summary: Login for Staff
+      description: Staff login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Invalid credentials
+ */
+
 app.post('/login-staff', async (req, res) => {
   const { username, password } = req.body;
 

@@ -4,9 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  }
 }
